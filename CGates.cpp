@@ -30,7 +30,6 @@ void CGates::Update(CScene *Scene)
         b=gates[i].second;
         Scene->SetMapW(a,b,7,i);
     }
-    Scene->SetMapW(1,1,isWarp+1);
 }
 
 void CGates::Refresh(CScene *Scene)
