@@ -2,7 +2,7 @@
 #include"CScene.h"
 CItems::CItems(int sizeGrow,int sizePoison)
 {
-    tick=respawn=COOLTIME;
+    tick=respawn=ITEMCOOLTIME;
     this->count[0]=sizeGrow;
     this->count[1]=sizePoison;
 }

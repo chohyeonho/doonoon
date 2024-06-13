@@ -9,5 +9,8 @@
 using namespace std;
 
 #define TICKTIME 500000
-#define COOLTIME 20
+#define ITEMCOOLTIME 20
+#define GATECOOLTIME 40
 #define MIN_SNAKEBODY 3
+#define GROW_MAKE 2
+#define POISON_MAKE 1

@@ -28,7 +28,7 @@ void CMapBuilder::Sero(CMap * t,int x, int start, int end,int w)
 void CMapBuilder::BuildMap1(CMap * t)
 {
     //맵 밖을 -1로 설정
-    Garo(t,0,0,22,-1);
+    Garo(t,0,0,22,1);
     Garo(t,22,0,22,-1);
     Sero(t,0,0,22,-1);
     Sero(t,22,0,22,-1);

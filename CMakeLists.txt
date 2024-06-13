@@ -4,7 +4,7 @@ project(doonoon VERSION 0.1.0 LANGUAGES C CXX)
 find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
 
-add_executable(doonoon main.cpp Game.h CScene.cpp CScene.h CSnake.cpp CSnake.h CMap.h CMap.cpp CMapBuilder.h CMapBuilder.cpp CItems.h CItems.cpp)
+add_executable(doonoon main.cpp Game.h CScene.cpp CScene.h CSnake.cpp CSnake.h CMap.h CMap.cpp CMapBuilder.h CMapBuilder.cpp CItems.h CItems.cpp CGates.h CGates.cpp)
 target_link_libraries(doonoon ${CURSES_LIBRARIES})
 
 include(CTest)

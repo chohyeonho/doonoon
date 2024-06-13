@@ -2,6 +2,7 @@
 #include "CSnake.h"
 #include "CMap.h"
 #include "CItems.h"
+#include"CGates.h"
 
 CScene::CScene()
 {
@@ -50,7 +51,8 @@ void CScene::Init()
     
     youDie=false;
     Snake=new CSnake(snakey,snakex);
-    Items=new CItems(1,1);
+    Items=new CItems(GROW_MAKE,POISON_MAKE);
+    Gates=new CGates();
     CurrentMap=new CMap();
     CurrentMap->Init(1);
 }
@@ -62,7 +64,7 @@ void CScene::Update()
 
     Items->Update(this);
 
-    //Gates->Update(this);
+    Gates->Update(this);
 
     Snake->Update(this,input);
 
@@ -121,7 +123,7 @@ void CScene::SetMapW(int y, int x, int w, int w2)
     map[y][x][1]=w2;
 }
 
-void CScene::Collision(int y, int x)
+void CScene::ItemCollision(int y, int x)
 {
     switch (map[y][x][0])
     {
@@ -131,8 +133,24 @@ void CScene::Collision(int y, int x)
     case 6:
         Items->Collision(map[y][x][1],1);
         break;
-    
     default:
         break;
     }
+}
+
+void CScene::GateCollision(int y, int x,int dir)
+{
+    pair<pair<int,int>,int> a=Gates->Collision(this,map[y][x][1],dir);
+    Snake->SetPos(a.first.first,a.first.second);
+    Snake->SetDir(a.second);
+}
+
+void CScene::GateOn()
+{
+    Gates->SetWarp(true);
+}
+
+void CScene::GateOff()
+{
+    Gates->SetWarp(false);
 }

@@ -3,6 +3,7 @@
 class CSnake;
 class CMap;
 class CItems;
+class CGates;
 class CScene
 {
 private:
@@ -10,6 +11,7 @@ private:
     CSnake * Snake;
 	CMap * CurrentMap;
 	CItems * Items;
+	CGates * Gates;
     int snakey,snakex;
     int input;
 	bool youDie;
@@ -25,5 +27,8 @@ public:
 	int GetMapW(int y,int x);
 	void SetMapW(int y,int x,int w);
 	void SetMapW(int y,int x,int w,int w2);
-	void Collision(int y,int x);
+	void ItemCollision(int y,int x);
+	void GateCollision(int y,int x,int dir);
+	void GateOn();
+	void GateOff();
 };

@@ -56,44 +56,77 @@ void CSnake::Update(CScene *Scene, int input)
         break;
     }
     currentMapW=Scene->GetMapW(y,x);
-    if(currentMapW==1)
-    {
-        // 벽에 부딪히면 죽는다
-        Scene->SetDie(true);
-        return;
-    }
     GoSnake(Scene);
 }
 
 void CSnake::GoSnake(CScene *Scene)
 {
+    if(currentMapW==7)
+    {
+        Scene->GateCollision(y,x,lastInput);
+        Scene->GateOn();
+        isWarp=true;
+        gatey=y;
+        gatex=x;
+        currentMapW=Scene->GetMapW(y,x);
+    }
+
     switch (currentMapW)
     {
     case 0:
         break;
-
+    case -1:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+        Scene->SetDie(true);
+        break;
     case 5:
         body.push_back({1,1});
-        Scene->Collision(y,x);
+        Scene->ItemCollision(y,x);
         break;
     case 6:
         body.pop_back();
-        //Scene->Collision(y,x);
+        Scene->ItemCollision(y,x);
         if(body.size()<MIN_SNAKEBODY)
         {
             Scene->SetDie(true);
         }
         break;
+    case 7:
+        Scene->GateCollision(y,x,lastInput);
+        break;
     default:
         break;
     }
+
     for (int i = body.size()-1; i > 0; i--)
     {
         body[i].first=body[i-1].first;
         body[i].second=body[i-1].second;
         Scene->SetMapW(body[i].first,body[i].second,4);
     }
+    if (isWarp)
+    {
+        if (body[body.size()-1].first==gatey&&body[body.size()-1].second==gatex)
+        {
+            Scene->GateOff();
+            isWarp=false;
+        }
+    }
+    
     body[0]={y,x};
     Scene->SetMapW(body[0].first,body[0].second,3);
-    Scene->SetMapW(1,4,body.size());
+}
+
+void CSnake::SetPos(int y, int x)
+{
+    this->y=y;
+    this->x=x;
+}
+
+void CSnake::SetDir(int dir)
+{
+    lastInput=dir;
 }
